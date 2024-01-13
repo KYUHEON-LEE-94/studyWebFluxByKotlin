@@ -58,9 +58,11 @@ class FluxPlaygroundTest {
 
     @Test
     fun fluxWithRequest() {
+
         Flux.range(1,9)
             .log()
             .subscribe ({ data -> println(data) }, {}, {}, {sub -> sub.request(3)})
+
         Thread.sleep(5000)
     }
 
