@@ -1,11 +1,9 @@
 package com.study.webflux
 
 import org.junit.jupiter.api.Test
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 
-/*어떻게 Junit에서 테스트하는가?*/
 class MonoTest {
 
     @Test
