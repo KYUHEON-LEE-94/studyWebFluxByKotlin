@@ -1,4 +1,4 @@
-package com.study.webflux
+package com.study.webflux.tutorial
 
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
