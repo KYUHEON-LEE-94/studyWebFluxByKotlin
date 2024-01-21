@@ -26,13 +26,13 @@ import reactor.core.publisher.Mono
  * 2024-01-20        LEE KYUHEON       최초 생성
  */
 @RestController
-@RequestMapping("v1/employees")
+@RequestMapping("v1")
 class EmployeeController(
     @Autowired
     val employeesRepository: EmployeesRepository
 ) {
 
-    @GetMapping
+    @GetMapping("/employees")
     fun getAllEmployees(): Flux<Employee> {
         return employeesRepository.findAll()
     }
@@ -42,7 +42,7 @@ class EmployeeController(
         return employeesRepository.findById(id)
     }
 
-    @PostMapping
+    @PostMapping("/employees")
     fun save(@RequestBody employee: Employee): Mono<Employee> {
         return employeesRepository.save(employee)
     }
@@ -57,8 +57,9 @@ class EmployeeController(
         return employeesRepository.deleteAll()
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/employees/{id}")
     fun delete(@PathVariable id:String): Mono<Void> {
+        println("id = $id")
         return employeesRepository.deleteById(id)
     }
 }
