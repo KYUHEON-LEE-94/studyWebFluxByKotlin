@@ -7,7 +7,32 @@ import reactor.test.scheduler.VirtualTimeScheduler
 import java.time.Duration
 /*operation 이어서*/
 class VirtualizingTimeTest {
+    @Test
+    fun `simulate time operator`(){
+        val flux = Flux.just(1,2,3,4,5)
+            .delayElements(Duration.ofSeconds(1))
 
+        StepVerifier.create(flux)
+            .expectNext(1,2,3,4,5)
+            .verifyComplete()
+    }
+
+    @Test
+    fun `manipulating time using virtual time scheduler`() {
+        VirtualTimeScheduler.getOrSet()
+
+        val flux = Flux.just(1, 2, 3, 4, 5)
+            .delayElements(Duration.ofSeconds(1))
+            .log()
+
+        StepVerifier.withVirtualTime { flux }
+            .thenAwait(Duration.ofSeconds(1))
+            .expectNext(1)
+            .thenAwait(Duration.ofSeconds(4))
+            .expectNext(2,3,4,5)
+            .verifyComplete()
+
+    }
 
     @Test
     fun `flux test without virtual time scheduler`() {
